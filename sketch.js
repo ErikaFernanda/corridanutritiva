@@ -114,8 +114,8 @@ function criarBtn2(){
   rect(p1, p2+50, recw, rech, 20);     
   fill(0,0,0);
   textSize(rech/3);  
-  let txtw2 =textWidth("Instruções")
-  text('Instruções',(w1/2)-(txtw2/2),(h1/2)+50);
+  let txtw2 =textWidth("Instruçõess")
+  text('Instruçõess',(w1/2)-(txtw2/2),(h1/2)+50);
   
 }
 function mouseMoved() {
