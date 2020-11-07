@@ -105,7 +105,7 @@ function criarBtn1(){
   fill(0,0,0);
   textSize(rech/3);
   let txtw1 = textWidth("Iniciar");
-  text('Iniciar agora',(w1/2)-(txtw1/2),(h1/2));
+  text('Iniciar',(w1/2)-(txtw1/2),(h1/2));
 
 }
 function criarBtn2(){
