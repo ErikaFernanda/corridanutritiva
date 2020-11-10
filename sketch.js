@@ -235,7 +235,7 @@ function verInstrucoes() {
   
   
   if (mouseIsPressed &&((mouseY >=80 && mouseY<110) && (mouseX >c && mouseX<c+100 ))) {
-
+    console.log("d")
       tela1 = true
       tela2 = false
       telaInstrucao=false
