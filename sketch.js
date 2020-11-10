@@ -11,7 +11,7 @@ var pulo = 0;
 var tela1= true;
 var tela2 = false;
 var telaInstrucao = false;
-var w1 = 1260;
+var w1 = 1200;
 var h1 = 600;
 var c = -100;
 var recw = 100;
@@ -37,7 +37,6 @@ function preload() {
   agua = loadImage('agua.png');
   melancia = loadImage('melancia.png');
   pao = loadImage('pao.png');
-
   instrucoes = loadImage('instrucoes.png');
   fechar = loadImage('fechar.png');
 
@@ -48,8 +47,6 @@ function draw() {
   if (pts >= 400) {
     atingiuPontuacao()
   }
-
-
   if (tela1 == true) {
     c = c + 3;
     if (c >= w1) {
@@ -87,10 +84,29 @@ function draw() {
       sorteioItens()
     }
     movimentoCenario1()
+
     fill(0, 0, 0);
-    rect((w1 / 2) - 50 / 2, 2, 50, 40, 20);
+    rect(w1-250,4 , 100, 40, 20);
     fill(300, 300, 300);
-    text(pts, (w1 / 2) + 30 - (40), 28);
+    text("energia", w1-250, 35);
+    text(pts, w1-250, 25);
+
+    fill(0, 0, 0);
+    rect(w1-(w1/4)*2, 4, 100, 40, 20);
+    fill(300, 300, 300);
+    text("reserva",w1-(w1/4)*2, 35);
+    
+    fill(0, 0, 0);
+    rect(w1-(w1/4)*3, 4, 100, 40, 20);
+    fill(300, 300, 300);
+    text("Saúde Física",w1-(w1/4)*3, 35);
+
+    fill(0, 0, 0);
+    rect(w1-(w1/4)*4, 4, 100, 40, 20);
+    fill(300, 300, 300);
+    text("Nivel",w1-(w1/4)*4, 35);
+
+
     hp = h1 - 230 - (pulo * 10) + (130 / 2)
     itensCenario()
     image(imggif, 0, h1 - 230 - (pulo * 10), 130, 130); 
