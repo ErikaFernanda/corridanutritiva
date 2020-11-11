@@ -6,7 +6,7 @@ var hp
 var hi
 var wi
 var pts = 0;
-hitem = 0;
+var hitem = 0;
 var pulo = 0;
 var tela1= true;
 var tela2 = false;
@@ -14,7 +14,7 @@ var telaInstrucao = false;
 var w1 = 1200;
 var h1 = 600;
 var c = -100;
-var recw = 100;
+var recw = 200;
 var rech = 40;
 var p1 = (w1 / 2) - (recw / 2);
 var p2 = (h1 / 2) - (rech / 2);
@@ -39,11 +39,11 @@ function preload() {
   pao = loadImage('pao.png');
   instrucoes = loadImage('instrucoes.png');
   fechar = loadImage('fechar.png');
+  titulo = loadImage('titulo.gif');
 
 }
 
 function draw() {
-  
   if (pts >= 400) {
     atingiuPontuacao()
   }
@@ -57,8 +57,9 @@ function draw() {
     image(img, 0, 0, w1, h1);
     criarBtn1();
     criarBtn2();
-    image(imggif2, (w1 / 2) - 150, h1 - 130, 300, 130);
+    image(imggif2, (w1 / 2) - 150, h1 - 200, 300, 130);
     image(imggif, c, h1 - 140, 130, 130);
+    image(titulo, (w1/2)-400, 100, 800, 100);
 
     if (mouseIsPressed && (mouseX > p1 && mouseX < p1 + recw) && (mouseY > p2 && mouseY < p2 + rech)) {
       tela1 = false
@@ -73,7 +74,7 @@ function draw() {
     }
   }
   if (tela2 == true) {
-    console.log(parseInt(wi) + "")
+    
     if (parseInt(hp) - 50 - parseInt(hi) < 5 && parseInt(wi) < 80) {
       pts++
     }
@@ -121,7 +122,8 @@ function criarBtn1() {
   fill(c1btn1, c2btn1, c3btn1)
   rect(p1, p2, recw, rech, 20);
   fill(0, 0, 0);
-  textSize(rech / 3);
+  textSize(rech / 2);
+  textStyle(BOLD);
   let txtw1 = textWidth("Iniciar");
   text('Iniciar', (w1 / 2) - (txtw1 / 2), (h1 / 2));
 
@@ -131,7 +133,8 @@ function criarBtn2() {
   fill(c1btn2, c2btn2, c3btn2)
   rect(p1, p2 + 50, recw, rech, 20);
   fill(0, 0, 0);
-  textSize(rech / 3);
+  textSize(rech / 2);
+  textStyle(BOLD);
   let txtw2 = textWidth("Instruções")
   text('Instruções', (w1 / 2) - (txtw2 / 2), (h1 / 2) + 50);
 
@@ -235,7 +238,7 @@ function verInstrucoes() {
   
   
   if (mouseIsPressed &&((mouseY >=80 && mouseY<110) && (mouseX >c && mouseX<c+100 ))) {
-    console.log("d")
+
       tela1 = true
       tela2 = false
       telaInstrucao=false
