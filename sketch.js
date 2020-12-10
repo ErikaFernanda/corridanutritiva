@@ -29,7 +29,30 @@ var c3btn2 = 100;
 
 let item
 
+var imggif;
+var imggif2;
+var img;
+var cenario ;
+var agua ;
+var melancia;
+var pao ;
+var instrucoes ;
+var fechar ;
+var titulo ;
+
+var imgreserva;
+
+var imgenergia;
+var gifhomealegre;
+var bateria5;
+
 function preload() {
+ 
+  gifhomealegre = loadImage('Homealegre.gif');
+  bateria5 = loadImage('bateria5.png');
+
+  imgreserva = loadImage('reserva.svg');
+  imgenergia= loadImage('energia.png');
   imggif = loadImage('gif.gif');
   imggif2 = loadImage('food2.gif');
   img = loadImage('img8.jpg');
@@ -90,18 +113,24 @@ function draw() {
     rect(w1-250,4 , 100, 40, 20);
     fill(300, 300, 300);
     text("energia", w1-250, 35);
+    image(bateria5, w1-250, 35,150,50);
+
+    
     text(pts, w1-250, 25);
 
     fill(0, 0, 0);
     rect(w1-(w1/4)*2, 4, 100, 40, 20);
     fill(300, 300, 300);
     text("reserva",w1-(w1/4)*2, 35);
+    image(imgenergia, w1-(w1/4)*2, 35,50,50);
+
     
     fill(0, 0, 0);
     rect(w1-(w1/4)*3, 4, 100, 40, 20);
     fill(300, 300, 300);
     text("Saúde Física",w1-(w1/4)*3, 35);
-
+    // image(h, w1-(w1/4)*3, 35,100,90);
+    image(gifhomealegre, w1-(w1/4)*3, 35,100,90);
     fill(0, 0, 0);
     rect(w1-(w1/4)*4, 4, 100, 40, 20);
     fill(300, 300, 300);
@@ -144,7 +173,7 @@ function mouseMoved() {
   if (tela1 == true) {
     if ((mouseX > p1 && mouseX < p1 + recw) && (mouseY > p2 && mouseY < p2 + rech)) {
 
-      tnc1 = 300
+      
       c2btn1 = 90
       c2btn1 = 90
       console.log("btn1")
@@ -190,7 +219,10 @@ function keyReleased() {
     }
 
   }
+  else if (keyCode === ESCAPE) {
+   alert("jhvjghg")
 
+  }
 }
 function sorteioItens() {
 
