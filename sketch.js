@@ -40,7 +40,6 @@ var instrucoes;
 var fechar;
 var titulo;
 
-var imgreserva;
 
 var imgenergia;
 var gifhomealegre;
@@ -56,8 +55,8 @@ var listaCarboidratos;
 var listaProteinas;
 var listaTodos;
 
-var energia = 1000;
-var saude = 1000;
+var energia = 2000;
+var saude = 2000;
 var reserva = 1;
 
 var queijo_p
@@ -75,16 +74,29 @@ var manteiga_l
 var castanha_l
 var abacate_l
 
+var imgenergia2;
+var imgenergia3;
+var imgenergia4
+var bateria4
+var bateria3
+var bateria2 
+var imgenergia0
 
 
 function preload() {
 
   gifhomealegre = loadImage('Homealegre.gif');
   bateria5 = loadImage('bateria5.png');
+  bateria4 = loadImage('bateria4.png');
+  bateria3 = loadImage('bateria3.png');
+  bateria2 = loadImage('bateria2.png');
   pause = loadImage('pause.png');
-  imgreserva = loadImage('reserva.svg');
   imgenergia = loadImage('energia.png');
+  imgenergia2 = loadImage('energia2.png');
+  imgenergia3= loadImage('energia3.png');
+  imgenergia4 = loadImage('energia4.png');
 
+  imgenergia0 = imgenergia;
   imggif = loadImage('gif.gif');
   imggif2 = loadImage('food2.gif');
   img = loadImage('img8.jpg');
@@ -122,6 +134,8 @@ function preload() {
 }
 
 function draw() {
+  energia=energia-1;
+  saude=saude-1;
 
   if (pts >= 110) {
     atingiuPontuacao()
@@ -149,19 +163,51 @@ function draw() {
     }
   }
   if (tela2 == true) {
+    if(saude<0){
+      tela1=true
+      tela2=false
+      energia=2000
+      saude=2000
+      reserva=1
+      alert("SUA SAÚDE FICOU MUITO RUIM E VOCÊ PERDEU O JOGO")
+    }
+    if(energia<0){
+      tela1=true
+      tela2=false
+      energia=2000
+      saude=2000
+      reserva=1
+    alert("VOCÊ FICOU COM BAIXA ENERGIA E PERDEU O JOGO ")
+    }
+    if(energia>700 && energia<900){
+      bateria5 = bateria4
+    }
+    if(energia>400 && energia<700){
+      bateria5 = bateria3
+    }
+    if(energia>0 && energia<400){
+      bateria5 = bateria2
+    }
+    
     if (parseInt(hp) - 50 - parseInt(hi) < 5 && parseInt(wi) < 80) {
       if(listaCarboidratos.includes(item)==true){
-        bateria5 = loadImage('bateria2.png');
-        energia=energia+20;
+        energia=energia+500;
       }
       if(listaProteinas.includes(item)==true){
-        saude=saude+20
+        saude=saude+500
       }
       if(listaLipidios.includes(item)==true){
-        if(reserva<4){
-          reserva=reserva+1
-        }
+        if(reserva>1.5&& reserva<=2){
+          imgenergia0= imgenergia2
+         }
+         else if(reserva>2.5&& reserva<=3){
+           imgenergia0= imgenergia3
+         }
+         else  if(reserva>3.5&& reserva<=4){
+           imgenergia0= imgenergia4
+         }
         
+         
       }
       pts++
     }
@@ -191,10 +237,8 @@ function draw() {
     rect(w1 - (w1 / 4) * 2, 4, textWidth(" Reserva Energetica "), 40, 20);
     fill(0, 0, 0);
     text("Reserva energética", w1 - (w1 / 4) * 2, 35);
-    var reservax=55
-    while(reserva>0){
-      image(imgenergia, w1 - (w1 / 4) * 2, reservax, 50, 50);
-      reservax=reservax+10
+    if(imgenergia0!=null){
+      image(imgenergia0, w1 - (w1 / 4) * 2, 50, 50, 50);
     }
     
 
@@ -303,6 +347,27 @@ function keyReleased() {
     telaPause = true;
 
   }
+  else if (keyCode === ENTER) {
+
+    // energia=energia+1000;
+
+    alert(reserva)
+    if(reserva>=1&& reserva<=2){
+      
+      reserva =0;
+      imgenergia0= null
+     }else if(reserva>2.5&& reserva<=3){
+       reserva=1
+       imgenergia0= imgenergia
+     }else if(reserva>3.5&& reserva<=4){
+       reserva=2
+       imgenergia0= imgenergia2
+     }else if(reserva<4){
+      reserva=3
+      imgenergia0= imgenergia3
+    }
+
+  }
 }
 function sorteioItens() {
 
@@ -382,7 +447,9 @@ function verPause() {
     tela2 = true
     nivel = 0
     pts = 0
-
+    energia=2000
+    saude=2000
+    reserva=1
   }
   if (mouseIsPressed && ((mouseX > retx && mouseX < retx + 250) && (mouseY > rety2 && mouseY < rety2 + 80))) {
     // alert("return")
