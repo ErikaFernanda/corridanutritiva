@@ -159,9 +159,9 @@ function preload() {
 
   coco_l = loadImage('coco_l.png');
   manteiga_l = loadImage('manteiga_l.png');
-  castanha_l = loadImage('castanha_l.png');
+  // castanha_l = loadImage('castanha_l.png');
   abacate_l = loadImage('abacate_l.png');
-  listaLipidios = [coco_l, manteiga_l, castanha_l, abacate_l]
+  listaLipidios = [coco_l, manteiga_l, abacate_l]
 
 
 
@@ -171,186 +171,15 @@ function preload() {
 }
 
 function draw() {
-  energia = energia - 1;
-  saude = saude - 1;
 
   if (pts >= 110) {
     atingiuPontuacao()
   }
   if (telaMenu == true) {
-    contadorMovimento = contadorMovimento + 3;
-    if (contadorMovimento >= wTela) {
-      contadorMovimento = -100;
-    }
-    image(img, 0, 0, wTela, hTela);
-    criarBtn1();
-    criarBtn2();
-    image(imggif2, (wTela / 2) - 150, hTela - 200, 300, 130);
-    image(imggif, contadorMovimento, hTela - 140, 130, 130);
-    image(titulo, (wTela / 2) - 400, 100, 800, 100);
-    if (mouseIsPressed && (mouseX > p1 && mouseX < p1 + recw) && (mouseY > p2 && mouseY < p2 + rech)) {
-      telaMenu = false
-      telaJogo = true
-    }
-    if (mouseIsPressed && ((mouseY > p2 + 50 && mouseY < p2 + 50 + rech) && (mouseX > p1 && mouseX < p1 + recw))) {
-      telaMenu = false
-      telaJogo = false
-      telaInstrucao = true
-    }
+    verMenu();
   }
   if (telaJogo == true) {
-    movimentoCenario1()
-
-    homerposicaoY = hTela - 200 - (movimentoHomer * 10)
-
-    fill(100, 100, 100);
-    rect(wTela - (wTela / 4) * 4 + 10, 50, 110, 20);
-    fill(100, 20, 100);
-    rect(wTela - (wTela / 4) * 4 + 10, 50, pts, 20);
-
-    fill(300, 300, 100);
-    rect(wTela - 250, 4, textWidth(" Energia "), 40, 20);
-    fill(0, 0, 0);
-    text("Energia", wTela - 250, 35);
-    image(bateria1, wTela - 280, 50, 155, 50);
-    fill(300, 300, 100);
-    rect(wTela - (wTela / 4) * 2, 4, textWidth(" Reserva Energetica "), 40, 20);
-    fill(0, 0, 0);
-    text("Reserva energética", wTela - (wTela / 4) * 2, 35);
-    if (imgenergia0 != null) {
-      image(imgenergia0, wTela - (wTela / 4) * 2, 50, 50, 50);
-    }
-    fill(300, 300, 100);
-    rect(wTela - (wTela / 4) * 3, 4, textWidth(" Saúde Física "), 40, 20);
-    fill(0, 0, 0);
-    text("Saúde Física", wTela - (wTela / 4) * 3, 35);
-    image(statusSaude, wTela - (wTela / 4) * 3 + 15, 50, 80, 80);
-    fill(300, 300, 100);
-    rect(wTela - (wTela / 4) * 4 + 10, 4, 100, 40, 20);
-    fill(0, 0, 0);
-    text("Nivel : " + nivel, wTela - (wTela / 4) * 4 + 10, 35);
-    itensCenario()
-
-    if (saude < 0) {
-      telaMenu = true
-      telaJogo = false;
-      resetarValores();
-      alert("SUA SAÚDE FICOU MUITO RUIM E VOCÊ PERDEU O JOGO")
-    }
-
-    if (energia < 0) {
-      telaMenu = true
-      telaJogo = false
-      resetarValores();
-      alert("VOCÊ FICOU COM BAIXA ENERGIA E PERDEU O JOGO ")
-    }
-
-    if (saude > 1500) {
-      statusSaude = homebem
-    }
-    if (saude > 1000 && saude < 1500) {
-      statusSaude = homenormal
-    } else if (saude > 500 && saude < 1000) {
-      statusSaude = homecansado
-    }
-    if (saude > 0 && saude < 500) {
-      statusSaude = homemuitocansado
-    }
-
-    if (energia > 1500) {
-      bateria1 = bateria5
-    }
-    if (energia > 1000 && energia < 1500) {
-      bateria1 = bateria4
-    }
-    if (energia > 500 && energia < 1000) {
-      bateria1 = bateria3
-    }
-    if (energia > 0 && energia < 500) {
-      bateria1 = bateria2
-    }
-
-    var posicaoChoque = posicaoYitem1 - (homerposicaoY + (homeSizeH / 3))
-
-    if (posicaoXitem1 < 25 && (posicaoChoque > -25 && posicaoChoque < 25)) {
-      if (listaAgua.includes(item) == true) {
-        energia = energia + 500;
-        saude = saude + 500;
-        if (reserva < 4) {
-          reserva = reserva + 2;
-        }
-
-        fill(0, 300, 100);
-        rect(wTela - 180, 140, textWidth("Água") + 8, 60);
-        fill(0, 0, 0);
-        text("Água", wTela - 180, 180);
-
-      }
-      if (listaCarboidratos.includes(item) == true) {
-        energia = energia + 5;
-        saude = saude + 25
-        fill(0, 300, 100);
-        rect(wTela - 180, 140, textWidth("Carboidrato") + 8, 60);
-        fill(0, 0, 0);
-        text("Carboidrato", wTela - 180, 180);
-
-      }
-      if (listaProteinas.includes(item) == true) {
-        saude = saude + 50
-        fill(0, 300, 100);
-        rect(wTela - 180, 140, textWidth("Proteina") + 8, 60);
-        fill(0, 0, 0);
-        text("Proteina", wTela - 180, 180);
-
-      }
-      if (listaLipidios.includes(item) == true) {
-        // alert("lipidios"+ reserva)
-        fill(0, 300, 100);
-        rect(wTela - 180, 140, textWidth("Lipidio") + 8, 60);
-        fill(0, 0, 0);
-        text("Lipidio", wTela - 180, 180);
-        if (reserva >= 4) {
-          saude = saude - 100;
-        }
-
-        if (reserva < 4) {
-          reserva = reserva + 0.05
-        }
-        if (reserva > 4) {
-          reserva = 4;
-        }
-
-
-        if (reserva >= 0 && reserva < 1) {
-          imgenergia0 = imgenergia1
-        }
-        else if (reserva >= 1 && reserva < 2) {
-          imgenergia0 = imgenergia2
-        }
-        else if (reserva >= 2 && reserva < 3) {
-          imgenergia0 = imgenergia3
-        }
-        else if (reserva >= 3 && reserva <= 4) {
-          imgenergia0 = imgenergia4
-        }
-      }
-      pts++
-    }
-
-    contadorMovimento = contadorMovimento - (nivel + 4);
-    if (contadorMovimento < (wTela) * -1) {
-      contadorMovimento = 0
-      sorteioItens()
-    }
-
-
-
-
-    // rect(posicaowitem1,posicaohitem1,wItem,hItem)
-    // rect( 0, hTela - 200 - (movimentoHomer * 10), 100, 100)
-    image(imggif, 0, homerposicaoY, homeSizeW, homeSizeH);
-
-
+    verJogo();
   }
   if (telaInstrucao == true) {
     verInstrucoes();
@@ -358,6 +187,190 @@ function draw() {
   if (telaPause == true) {
     verPause();
   }
+}
+function verMenu() {
+  contadorMovimento = contadorMovimento + 3;
+  if (contadorMovimento >= wTela) {
+    contadorMovimento = -100;
+  }
+  image(img, 0, 0, wTela, hTela);
+  criarBtn1();
+  criarBtn2();
+  image(imggif2, (wTela / 2) - 150, hTela - 200, 300, 130);
+  image(imggif, contadorMovimento, hTela - 140, 130, 130);
+  image(titulo, (wTela / 2) - 400, 100, 800, 100);
+  if (mouseIsPressed && (mouseX > p1 && mouseX < p1 + recw) && (mouseY > p2 && mouseY < p2 + rech)) {
+    telaMenu = false
+    telaJogo = true
+    telaInstrucao = false
+  }
+  if (mouseIsPressed && ((mouseY > p2 + 50 && mouseY < p2 + 50 + rech) && (mouseX > p1 && mouseX < p1 + recw))) {
+    telaMenu = false
+    telaJogo = false
+    telaInstrucao = true
+  }
+}
+function verJogo() {
+  energia = energia - 1;
+  saude = saude - 1;
+  movimentoCenario1()
+  homerposicaoY = hTela - 200 - (movimentoHomer * 10)
+
+  fill(100, 100, 100);
+  rect(wTela - (wTela / 4) * 4 + 10, 50, 110, 20);
+  fill(100, 20, 100);
+  rect(wTela - (wTela / 4) * 4 + 10, 50, pts, 20);
+
+  fill(300, 300, 100);
+  rect(wTela - 250, 4, textWidth(" Energia "), 40, 20);
+  fill(0, 0, 0);
+  text("Energia", wTela - 250, 35);
+  image(bateria1, wTela - 280, 50, 155, 50);
+  fill(300, 300, 100);
+  rect(wTela - (wTela / 4) * 2, 4, textWidth(" Reserva Energetica "), 40, 20);
+  fill(0, 0, 0);
+  text("Reserva energética", wTela - (wTela / 4) * 2, 35);
+  if (imgenergia0 != null) {
+    image(imgenergia0, wTela - (wTela / 4) * 2, 50, 50, 50);
+  }
+  fill(300, 300, 100);
+  rect(wTela - (wTela / 4) * 3, 4, textWidth(" Saúde Física "), 40, 20);
+  fill(0, 0, 0);
+  text("Saúde Física", wTela - (wTela / 4) * 3, 35);
+  image(statusSaude, wTela - (wTela / 4) * 3 + 15, 50, 80, 80);
+  fill(300, 300, 100);
+  rect(wTela - (wTela / 4) * 4 + 10, 4, 100, 40, 20);
+  fill(0, 0, 0);
+  text("Nivel : " + nivel, wTela - (wTela / 4) * 4 + 10, 35);
+  itensCenario()
+
+  if (saude < 0) {
+    telaMenu = true
+    telaJogo = false;
+    resetarValores();
+    alert("SUA SAÚDE FICOU MUITO RUIM E VOCÊ PERDEU O JOGO")
+  }
+
+  if (energia < 0) {
+    telaMenu = true
+    telaJogo = false
+    resetarValores();
+    alert("VOCÊ FICOU COM BAIXA ENERGIA E PERDEU O JOGO ")
+  }
+
+  if (saude > 1500) {
+    statusSaude = homebem
+  }
+  if (saude > 1000 && saude < 1500) {
+    statusSaude = homenormal
+  } else if (saude > 500 && saude < 1000) {
+    statusSaude = homecansado
+  }
+  if (saude > 0 && saude < 500) {
+    statusSaude = homemuitocansado
+  }
+
+  if (energia > 1500) {
+    bateria1 = bateria5
+  }
+  if (energia > 1000 && energia < 1500) {
+    bateria1 = bateria4
+  }
+  if (energia > 500 && energia < 1000) {
+    bateria1 = bateria3
+  }
+  if (energia > 0 && energia < 500) {
+    bateria1 = bateria2
+  }
+
+  var posicaoChoque = posicaoYitem1 - (homerposicaoY + (homeSizeH / 3))
+
+  if (posicaoXitem1 < 25 && (posicaoChoque > -25 && posicaoChoque < 25)) {
+    if (listaAgua.includes(item) == true) {
+      energia = energia + 500;
+      saude = saude + 500;
+      if (reserva < 4) {
+        reserva = reserva + 2;
+      }
+
+      fill(0, 300, 100);
+      rect(wTela - 180, 140, textWidth("Água") + 8, 60);
+      fill(0, 0, 0);
+      text("Água", wTela - 180, 180);
+
+    }
+    if (listaCarboidratos.includes(item) == true) {
+      energia = energia + 100;
+      saude = saude + 50
+      fill(0, 300, 100);
+      rect(wTela - 180, 140, textWidth("Carboidrato") + 8, 60);
+      fill(0, 0, 0);
+      text("Carboidrato", wTela - 180, 180);
+
+    }
+    if (listaBesteiras.includes(item) == true) {
+      energia = energia + 100;
+      saude = saude - 50
+      fill(0, 300, 100);
+      rect(wTela - 180, 140, textWidth("Carboidrato") + 8, 60);
+      fill(0, 0, 0);
+      text("Carboidrato", wTela - 180, 180);
+
+    }
+    if (listaProteinas.includes(item) == true) {
+      saude = saude + 200
+      fill(0, 300, 100);
+      rect(wTela - 180, 140, textWidth("Proteina") + 8, 60);
+      fill(0, 0, 0);
+      text("Proteina", wTela - 180, 180);
+
+    }
+    if (listaLipidios.includes(item) == true) {
+      // alert("lipidios"+ reserva)
+      fill(0, 300, 100);
+      rect(wTela - 180, 140, textWidth("Lipidio") + 8, 60);
+      fill(0, 0, 0);
+      text("Lipidio", wTela - 180, 180);
+      if (reserva >= 4) {
+        saude = saude - 100;
+      }
+      if (reserva < 4) {
+        reserva = reserva + 0.05
+      }
+      if (reserva > 4) {
+        reserva = 4;
+      }
+
+
+      if (reserva >= 0 && reserva < 1) {
+        imgenergia0 = imgenergia1
+      }
+      else if (reserva >= 1 && reserva < 2) {
+        imgenergia0 = imgenergia2
+      }
+      else if (reserva >= 2 && reserva < 3) {
+        imgenergia0 = imgenergia3
+      }
+      else if (reserva >= 3 && reserva <= 4) {
+        imgenergia0 = imgenergia4
+      }
+    }
+    pts = pts + 2;
+  }
+
+  contadorMovimento = contadorMovimento - (nivel + 4);
+  if (contadorMovimento < (wTela) * -1) {
+    contadorMovimento = 0
+    sorteioItens()
+  }
+
+
+
+
+  // rect(posicaowitem1,posicaohitem1,wItem,hItem)
+  // rect( 0, hTela - 200 - (movimentoHomer * 10), 100, 100)
+  image(imggif, 0, homerposicaoY, homeSizeW, homeSizeH);
+
 }
 function criarBtn1() {
 
@@ -385,12 +398,7 @@ function mouseMoved() {
 
   if (telaMenu == true) {
     if ((mouseX > p1 && mouseX < p1 + recw) && (mouseY > p2 && mouseY < p2 + rech)) {
-
-
-
       c2btn1 = 90
-      console.log("btn1")
-
     } else {
 
       c1btn1 = 300
@@ -442,7 +450,7 @@ function keyReleased() {
       alert("você não pegou lipidios suficientes")
       return
     }
-    if (energia >= 2000) {
+    if (energia <= 2000) {
       energia = energia + 500;
     }
 
@@ -468,8 +476,6 @@ function sorteioItens() {
   var list = random(listaTodos);
   let r = random(list);
   item = r
-
-
   posicaoXitem1 = wTela + contadorMovimento
 
   image(item, posicaoXitem1, posicaoYitem1, wItem, hItem);
@@ -561,8 +567,6 @@ function resetarValores() {
   statusSaude = homebem
   bateria1 = bateria5
 
-  function setup() {
-    createCanvas(w1, h1);
-  }
+
 
 }
